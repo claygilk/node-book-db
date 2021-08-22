@@ -1,6 +1,7 @@
 const { response } = require('express')
 const Book = require('../models/book')
 
+// Add book to database
 const add_book = (req, res) => {
     
     console.log('Adding Book to DB')
@@ -19,6 +20,33 @@ const add_book = (req, res) => {
         })
 }
 
+// Lookup book by title
+const get_one_book = (req, res) => {
+    
+    const paramTitle = req.query.title
+
+    Book.findOne({ title: paramTitle})
+        .then(record => {
+            res.json(record).status(200).send()
+        })
+        .catch(err => {
+
+            console.log(err)
+            res.status(404).send()
+        })
+}
+
+const delete_book = (req, res) => {
+    console.log('delete book')
+    
+}
+
+const update_book = (req, res) => {
+    console.log('update book')
+    
+}
+
+// Helper function
 function transformJSON(rawJSON){
 
     let book = {}
@@ -31,9 +59,11 @@ function transformJSON(rawJSON){
     book.imageLinks = rawJSON.volumeInfo.imageLinks
 
     return book
-
 }
 
 module.exports = {
-    add_book
+    add_book,
+    get_one_book,
+    delete_book,
+    update_book
 }
