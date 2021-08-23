@@ -87,6 +87,19 @@ const update_book = (req, res) => {
     
 }
 
+const get_all_books = (req, res) => {
+
+    Book.find()
+        .then(records => {
+
+            res.status(200).send(records)
+        })
+        .catch(err => {
+            
+            console.log(err)
+        })
+}
+
 // Helper function
 function transformJSON(rawJSON){
 
@@ -106,5 +119,6 @@ module.exports = {
     add_book,
     get_one_book,
     delete_book,
-    update_book
+    update_book,
+    get_all_books
 }
