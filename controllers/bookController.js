@@ -37,7 +37,32 @@ const get_one_book = (req, res) => {
 }
 
 const delete_book = (req, res) => {
-    console.log('delete book')
+    
+    const paramTitle = req.query.title
+
+    Book.findOneAndDelete({ title: paramTitle})
+        .then(() => {
+
+            Book.findOne({ title: paramTitle})
+                .then(record => {
+
+                    if(!record){
+
+                        res.status(204).send()
+                    }
+                    res.status(304).send()
+
+                })
+                .catch(err => {
+                    console.log(err)
+                    res.status(404).send()
+                })
+        })
+        .catch(err => {
+
+            console.log(err)
+            res.status(404).send()
+        })
     
 }
 
