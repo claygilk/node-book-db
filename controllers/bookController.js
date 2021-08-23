@@ -12,9 +12,11 @@ const add_book = (req, res) => {
 
     newBook.save()
         .then(() => {
+            
             res.status(201).send()
         })
         .catch(error => {
+            
             console.log(error)
             response.status(304).send()
         })
@@ -27,6 +29,7 @@ const get_one_book = (req, res) => {
 
     Book.findOne({ title: paramTitle})
         .then(record => {
+            
             res.json(record).status(200).send()
         })
         .catch(err => {
@@ -67,7 +70,20 @@ const delete_book = (req, res) => {
 }
 
 const update_book = (req, res) => {
-    console.log('update book')
+
+    const updatedBook = req.body
+    const id = updatedBook._id
+
+    Book.findByIdAndUpdate(id, updatedBook)
+        .then(result => {
+            
+            res.status(200).send(result)
+        })
+        .catch(err => {
+            
+            console.log(err)
+            res.status(304).send()
+        })
     
 }
 

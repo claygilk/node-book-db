@@ -9,6 +9,6 @@ router.get('/', bookController.get_one_book)
 
 router.delete('/', bookController.delete_book)
 
-router.post('/:title', bookController.update_book)
+router.put('/:title', bookController.update_book)
 
 module.exports = router
