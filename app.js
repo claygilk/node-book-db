@@ -1,6 +1,7 @@
 const express =  require('express')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
+const cors = require('cors')
 const bookRoutes = require('./routes/bookRoutes')
 
 // Initialize express app, and configure settings
@@ -23,6 +24,10 @@ mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: 
     .catch(error => {
         console.log(error);
     })
+
+app.use(cors({
+    origin: '*'
+}))
 
 app.use('/books', bookRoutes)
  
